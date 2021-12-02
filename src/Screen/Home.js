@@ -253,6 +253,8 @@ const Home = ({ navigation }) => {
     );
 };
 
+
+
 function MenuItem({ image, text, id, highlighted }) {
     const navigation = useNavigation();
 
