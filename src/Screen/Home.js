@@ -24,7 +24,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Login from './Login';
 import { FontAwesome5 } from "../../node_modules/@expo/vector-icons";
 import DetailProduk from './DetailProduk';
-import { RootContext } from '../../App';
+import { RootContext } from '../context/RootContext';
 
 const styles = StyleSheet.create({
     container: {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     Alert,
     Keyboard,
@@ -19,6 +19,8 @@ import Home from './Home';
 
 // Modules
 import { Controller, useForm } from 'react-hook-form';
+import authAPI from '../api/auth';
+import { RootContext } from '../context/RootContext';
 // Components
 // import SizedBox from './src/components/SizedBox';
 const SizedBox = ({ height, width }) => {
@@ -112,24 +114,25 @@ function useStyles() {
 }
 
 const Login = ({navigation}) => {
+    const { setToken } = useContext(RootContext)
     const emailInput = React.useRef(null);
     const passwordInput = React.useRef(null);
     
-    const [islogin,setlogin]=useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            email: 'a',
-            password: 'a',
-        },
-    });
-
-
-    const onSubmit = (({ email, password }) => {
-        // Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
+    const onSubmit = (() => {
         console.log('berhasil login');
-        // setlogin(true);
-        navigation.navigate("Dashboard")
+        console.log(email, password)
+        authAPI.login(email, password).then(res => {
+            console.log(res)
+            if (!res.success) {
+                Alert.alert("Username / Password yg anda masukan salah");
+                return;
+            }
+            setToken(res?.data?.token ?? "");
+            navigation.navigate("Dashboard");
+        });
     });
 
     const onSignup = (({ }) => {
@@ -163,26 +166,18 @@ const Login = ({navigation}) => {
                         <Pressable onPress={() => emailInput.current?.focus()}>
                             <View style={styles.form}>
                                 <Text style={styles.label}>Email</Text>
-
-                                <Controller
-                                    control={control}
-                                    name="email"
-                                    render={({ onBlur, onChange, value }) => (
-                                        <TextInput
-                                            autoCapitalize="none"
-                                            autoCompleteType="email"
-                                            autoCorrect={false}
-                                            keyboardType="email-address"
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            onSubmitEditing={() => passwordInput.current?.focus()}
-                                            ref={emailInput}
-                                            returnKeyType="next"
-                                            style={styles.textInput}
-                                            textContentType="username"
-                                            value={value}
-                                        />
-                                    )}
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCompleteType="email"
+                                    autoCorrect={false}
+                                    keyboardType="email-address"
+                                    onChangeText={(val) => setEmail(val)}
+                                    onSubmitEditing={() => passwordInput.current?.focus()}
+                                    ref={emailInput}
+                                    returnKeyType="next"
+                                    style={styles.textInput}
+                                    textContentType="username"
+                                    value={email}
                                 />
                             </View>
                         </Pressable>
@@ -192,26 +187,18 @@ const Login = ({navigation}) => {
                         <Pressable onPress={() => passwordInput.current?.focus()}>
                             <View style={styles.form}>
                                 <Text style={styles.label}>Password</Text>
-
-                                <Controller
-                                    control={control}
-                                    name="password"
-                                    render={({ onBlur, onChange, value }) => (
-                                        <TextInput
-                                            autoCapitalize="none"
-                                            autoCompleteType="password"
-                                            autoCorrect={false}
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            onSubmitEditing={onSubmit}
-                                            ref={passwordInput}
-                                            returnKeyType="done"
-                                            secureTextEntry
-                                            style={styles.textInput}
-                                            textContentType="password"
-                                            value={value}
-                                        />
-                                    )}
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCompleteType="password"
+                                    autoCorrect={false}
+                                    onChangeText={(val) => setPassword(val)}
+                                    onSubmitEditing={onSubmit}
+                                    ref={passwordInput}
+                                    returnKeyType="done"
+                                    secureTextEntry
+                                    style={styles.textInput}
+                                    textContentType="password"
+                                    value={password}
                                 />
                             </View>
                         </Pressable>

@@ -1,6 +1,6 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Alert,
     Keyboard,
@@ -24,7 +24,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Login from './Login';
 import { FontAwesome5 } from "@expo/vector-icons";
 import DetailProduk from './DetailProduk';
-import { RootContext } from '../../App';
+import { RootContext } from '../context/RootContext';
+import userAPI from '../api/user';
 
 const styles = StyleSheet.create({
     container: {
@@ -190,7 +191,8 @@ const styles = StyleSheet.create({
 });
 
 const Home = ({ navigation }) => {
-    const { produk } = useContext(RootContext)
+    const { produk, token } = useContext(RootContext)
+    const [userDetail, setUserDetail] = useState();
 
     useEffect(() => {
         navigation.setOptions({
@@ -204,8 +206,16 @@ const Home = ({ navigation }) => {
                 )
             },
             headerLeft: () => null,
-        })
+        });
+
     }, [])
+
+    useEffect(() => {
+        console.log("asdasdasdasd");
+        userAPI.userDetail(token).then(
+            res => setUserDetail(res)
+        )
+    }, [token]);
 
     return (
         <ScrollView style={{ backgroundColor: "#fff", flex: 1, }}>
@@ -218,17 +228,17 @@ const Home = ({ navigation }) => {
             <View>
                 <View style={styles.detailuser}>
                     <Text style={styles.detailusertext}>
-                        Nama Lengkap    :  
+                        Nama Lengkap    :  {userDetail?.name ?? ""}
                     </Text>
                 </View>
                 <View style={styles.detailuser}>
                     <Text style={styles.detailusertext}>
-                    Nomor HP             : 
+                    Nomor HP             : {userDetail?.no_hp ?? ""}
                     </Text>
                 </View>
                 <View style={styles.detailuser}>
                     <Text style={styles.detailusertext}>
-                        Email                    : 
+                        Email                    : {userDetail?.email ?? ""}
                     </Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordVerify")}>
