@@ -161,7 +161,7 @@ const Login = ({ navigation }) => {
 
             <Text style={styles.subtitle}>Forgot Password?</Text>
 
-            <Pressable onPress={() => emailInput.current?.focus()}>
+            <Pressable>
               <View style={styles.form}>
                 <Text style={styles.label}>Kata Sandi Baru</Text>
                 <TextInput
@@ -176,7 +176,7 @@ const Login = ({ navigation }) => {
                 />
               </View>
             </Pressable>
-            <Pressable onPress={() => emailInput.current?.focus()}>
+            <Pressable>
               <View style={styles.form}>
                 <Text style={styles.label}>Masukan Ulang</Text>
                 <TextInput
