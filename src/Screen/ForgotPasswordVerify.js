@@ -59,6 +59,7 @@ function useStyles() {
             flexDirection: 'row',
             height: 48,
             paddingHorizontal: 16,
+            marginTop: 20,
         },
         label: {
             color: 'rgba(235, 235, 245, 0.6)',
@@ -112,6 +113,8 @@ function useStyles() {
 }
 
 const Login = ({navigation}) => {
+    const namaInput = React.useRef();
+    const nohpinput = React.useRef();
     const emailInput = React.useRef(null);
     const passwordInput = React.useRef(null);
     
@@ -119,6 +122,8 @@ const Login = ({navigation}) => {
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
+            nama: 'a',
+            nohp: 'a',
             email: 'a',
             password: 'a',
         },
@@ -127,17 +132,9 @@ const Login = ({navigation}) => {
 
     const onSubmit = (({ email, password }) => {
         // Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
-        console.log('berhasil login');
-        // setlogin(true);
-        navigation.navigate("Dashboard")
+        navigation.navigate("Login")
     });
 
-    const onSignup = (({ }) => {
-        navigation.navigate("RegisterScreen")
-    });
-    const onForgotPassword = (({ }) => {
-        navigation.navigate("ForgotPassword")
-    });
 
 
     const styles = useStyles();
@@ -156,42 +153,13 @@ const Login = ({navigation}) => {
 
                         <SizedBox height={8} />
 
-                        <Text style={styles.subtitle}>Sign in to your account</Text>
+                        <Text style={styles.subtitle}>Forgot Password?</Text>
 
-                        <SizedBox height={32} />
 
+                        
                         <Pressable onPress={() => emailInput.current?.focus()}>
                             <View style={styles.form}>
-                                <Text style={styles.label}>Email</Text>
-
-                                <Controller
-                                    control={control}
-                                    name="email"
-                                    render={({ onBlur, onChange, value }) => (
-                                        <TextInput
-                                            autoCapitalize="none"
-                                            autoCompleteType="email"
-                                            autoCorrect={false}
-                                            keyboardType="email-address"
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            onSubmitEditing={() => passwordInput.current?.focus()}
-                                            ref={emailInput}
-                                            returnKeyType="next"
-                                            style={styles.textInput}
-                                            textContentType="username"
-                                            value={value}
-                                        />
-                                    )}
-                                />
-                            </View>
-                        </Pressable>
-
-                        <SizedBox height={16} />
-
-                        <Pressable onPress={() => passwordInput.current?.focus()}>
-                            <View style={styles.form}>
-                                <Text style={styles.label}>Password</Text>
+                                <Text style={styles.label}>Kata Sandi Baru</Text>
 
                                 <Controller
                                     control={control}
@@ -199,7 +167,6 @@ const Login = ({navigation}) => {
                                     render={({ onBlur, onChange, value }) => (
                                         <TextInput
                                             autoCapitalize="none"
-                                            autoCompleteType="password"
                                             autoCorrect={false}
                                             onBlur={onBlur}
                                             onChangeText={onChange}
@@ -215,17 +182,35 @@ const Login = ({navigation}) => {
                                 />
                             </View>
                         </Pressable>
+                        <Pressable onPress={() => emailInput.current?.focus()}>
+                            <View style={styles.form}>
+                                <Text style={styles.label}>Masukan Ulang</Text>
+
+                                <Controller
+                                    control={control}
+                                    name="password"
+                                    render={({ onBlur, onChange, value }) => (
+                                        <TextInput
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            onBlur={onBlur}
+                                            onChangeText={onChange}
+                                            onSubmitEditing={onSubmit}
+                                            ref={passwordInput}
+                                            returnKeyType="done"
+                                            secureTextEntry
+                                            style={styles.textInput}
+                                            textContentType="password"
+                                            value={value}
+                                        />
+                                    )}
+                                />
+                            </View>
+                        </Pressable>
+                        
 
                         <SizedBox height={16} />
-                        <View style={styles.actionContainer}>
-                            <TouchableOpacity onPress={onSignup}>
-                                <Text style={styles.textButton}>Sign Up</Text>
-                            </TouchableOpacity>
-                            <SizedBox width={10} />
-                            <TouchableOpacity onPress={onForgotPassword}>
-                                <Text style={styles.textButton}>Forgot password?</Text>
-                            </TouchableOpacity>
-                        </View>
+                       
 
                         <SizedBox height={16} />
 

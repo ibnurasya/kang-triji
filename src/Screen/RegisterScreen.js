@@ -16,11 +16,9 @@ import {
     Button,
 } from 'react-native';
 import Home from './Home';
-
-// Modules
+import { getDatabase, ref, onValue, set, push } from 'firebase/database';
 import { Controller, useForm } from 'react-hook-form';
-// Components
-// import SizedBox from './src/components/SizedBox';
+
 const SizedBox = ({ height, width }) => {
     return <View style={{ height, width }} />;
 };
@@ -59,6 +57,7 @@ function useStyles() {
             flexDirection: 'row',
             height: 48,
             paddingHorizontal: 16,
+            marginTop: 20,
         },
         label: {
             color: 'rgba(235, 235, 245, 0.6)',
@@ -111,7 +110,20 @@ function useStyles() {
     });
 }
 
+
+function storeHighScore(score) {
+  const db = getDatabase();
+  const reference = ref(db, 'data');
+  // set(reference, {
+  //   "zzz": score,
+  // });
+  push(reference, {user: "sd"})
+}
+
 const Login = ({navigation}) => {
+    
+    const namaInput = React.useRef();
+    const nohpinput = React.useRef();
     const emailInput = React.useRef(null);
     const passwordInput = React.useRef(null);
     
@@ -119,25 +131,21 @@ const Login = ({navigation}) => {
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
+            nama: 'a',
+            nohp: 'a',
             email: 'a',
             password: 'a',
         },
     });
 
-
-    const onSubmit = (({ email, password }) => {
+    const onSubmit = (({ nama,nohp,email, password }) => {
         // Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
         console.log('berhasil login');
         // setlogin(true);
-        navigation.navigate("Dashboard")
+        // navigation.navigate("Login")
+        storeHighScore(9999);
     });
 
-    const onSignup = (({ }) => {
-        navigation.navigate("RegisterScreen")
-    });
-    const onForgotPassword = (({ }) => {
-        navigation.navigate("ForgotPassword")
-    });
 
 
     const styles = useStyles();
@@ -156,21 +164,19 @@ const Login = ({navigation}) => {
 
                         <SizedBox height={8} />
 
-                        <Text style={styles.subtitle}>Sign in to your account</Text>
+                        <Text style={styles.subtitle}>Sign UP!</Text>
 
-                        <SizedBox height={32} />
 
-                        <Pressable onPress={() => emailInput.current?.focus()}>
+                        <Pressable onPress={() => namaInput.current?.focus()}>
                             <View style={styles.form}>
-                                <Text style={styles.label}>Email</Text>
+                                <Text style={styles.label}>Nama Lengkap</Text>
 
                                 <Controller
                                     control={control}
-                                    name="email"
+                                    name="nama"
                                     render={({ onBlur, onChange, value }) => (
                                         <TextInput
                                             autoCapitalize="none"
-                                            autoCompleteType="email"
                                             autoCorrect={false}
                                             keyboardType="email-address"
                                             onBlur={onBlur}
@@ -187,8 +193,55 @@ const Login = ({navigation}) => {
                             </View>
                         </Pressable>
 
-                        <SizedBox height={16} />
 
+                        <Pressable onPress={() => nohpinput.current?.focus()}>
+                            <View style={styles.form}>
+                                <Text style={styles.label}>No HP</Text>
+
+                                <Controller
+                                    control={control}
+                                    name="password"
+                                    render={({ onBlur, onChange, value }) => (
+                                        <TextInput
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            onBlur={onBlur}
+                                            onChangeText={onChange}
+                                            onSubmitEditing={onSubmit}
+                                            ref={passwordInput}
+                                            returnKeyType="done"
+                                            style={styles.textInput}
+                                            textContentType="password"
+                                            value={value}
+                                        />
+                                    )}
+                                />
+                            </View>
+                        </Pressable>
+                        <Pressable onPress={() => emailInput.current?.focus()}>
+                            <View style={styles.form}>
+                                <Text style={styles.label}>Email</Text>
+
+                                <Controller
+                                    control={control}
+                                    name="password"
+                                    render={({ onBlur, onChange, value }) => (
+                                        <TextInput
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            onBlur={onBlur}
+                                            onChangeText={onChange}
+                                            onSubmitEditing={onSubmit}
+                                            ref={passwordInput}
+                                            returnKeyType="done"
+                                            style={styles.textInput}
+                                            textContentType="password"
+                                            value={value}
+                                        />
+                                    )}
+                                />
+                            </View>
+                        </Pressable>
                         <Pressable onPress={() => passwordInput.current?.focus()}>
                             <View style={styles.form}>
                                 <Text style={styles.label}>Password</Text>
@@ -217,15 +270,7 @@ const Login = ({navigation}) => {
                         </Pressable>
 
                         <SizedBox height={16} />
-                        <View style={styles.actionContainer}>
-                            <TouchableOpacity onPress={onSignup}>
-                                <Text style={styles.textButton}>Sign Up</Text>
-                            </TouchableOpacity>
-                            <SizedBox width={10} />
-                            <TouchableOpacity onPress={onForgotPassword}>
-                                <Text style={styles.textButton}>Forgot password?</Text>
-                            </TouchableOpacity>
-                        </View>
+                       
 
                         <SizedBox height={16} />
 
@@ -233,7 +278,7 @@ const Login = ({navigation}) => {
 
                         <TouchableOpacity onPress={onSubmit}>
                             <View style={styles.button}>
-                                <Text style={styles.buttonTitle}>Continue</Text>
+                                <Text style={styles.buttonTitle}>Register</Text>
                             </View>
                         </TouchableOpacity>
                     </KeyboardAvoidingView>

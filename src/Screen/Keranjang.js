@@ -17,12 +17,12 @@ import {
     Image,
     Button,
 } from 'react-native';
-import { Feather } from "../../node_modules/@expo/vector-icons";
-import { AntDesign } from "../../node_modules/@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import Login from './Login';
-import { FontAwesome5 } from "../../node_modules/@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import DetailProduk from './DetailProduk';
 import { RootContext } from '../../App';
 
@@ -159,6 +159,20 @@ const styles = StyleSheet.create({
         // alignContent: 'center',
         // justifyContent: 'center',
     },
+    orderWrapper: {
+        marginTop: 20,
+        marginHorizontal: 20,
+        backgroundColor: '#F08233',
+        borderRadius: 50,
+        paddingVertical: 21,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    orderText: {
+        fontSize: 14,
+        color: "#fff",
+    },
 
 });
 
@@ -183,70 +197,23 @@ const Home = ({ navigation }) => {
     return (
         <ScrollView style={{ backgroundColor: "#fff", flex: 1, }}>
             <View style={styles.container}>
-                <Text style={styles.h2}>Kang</Text>
-                <Text style={styles.title}>TRIJI</Text>
-                <Text style={{
-                    borderWidth: 2,
-                    lineHeight: 30,
-                    marginLeft: 18,
-                    marginRight: 18,
-                    borderRadius: 20,
-                    borderColor: "#CDCDCD",
-                    color: '#CDCDCD',
-                    marginBottom: 20
-                }}>  <AntDesign margintop='5' marginLeft='10' name="search1" size={20} color="black" />  Search</Text>
-                <Text style={styles.bagiantext}>MENU</Text>
+                <Text style={styles.h2}>Keranjang</Text>
             </View>
-            <ScrollView horizontal style={{ flex: 1, minHeight: 220, maxHeight: 220 }}>
-                {produk.map(({ nama, image, topseller }, index) => {
-                    return (
-                        <MenuItem key={index} id={index} image={image} text={nama} highlighted={topseller} />
-                    );
-                })}
-            </ScrollView>
-            <View style={styles.containerd}>
-                <Text style={styles.bagiantext}>TOP SELLER</Text>
-            </View>
-            <View style={styles.topseller}>
-                <View style={styles.topsellercont}>
-                    <View style={styles.topsellerinner}>
-                        <Text style={{
-                            marginLeft: 20,
-                            marginTop: 20
-                        }}>
-                            <FontAwesome5 name="crown" size={24} color="#F5CA48" />  Top Seller</Text>
-                        <Text style={{
-                            marginLeft: 20,
-                            marginTop: 20,
-                            fontSize: 20,
-                            fontWeight: 'bold',
-                            lineHeight: 20,
-                        }}>Putu Belanda</Text>
-                        <Text style={{
-                            marginLeft: 20,
-                            marginTop: 2,
-                            fontSize: 12,
-                            fontWeight: 'bold',
-                            lineHeight: 20,
-                            color: 'white',
-                        }}>Harga RP. 15.000,00,-</Text>
-
-                        <Text style={{ marginLeft: 20 }}>
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
+            {
+                
+            }
+            <View>
+                <TouchableOpacity onPress={() => alert("Pesanan telah masuk")}>
+                    <View style={styles.orderWrapper}>
+                        <Text style={styles.orderText}>
+                            Bayar
                         </Text>
                     </View>
-
-                </View>
-                <View style={styles.topsellercont}>
-                    <View style={styles.topsellerinner}>
-                        <Image source={require('../../assets/putubelanda.jpeg')} style={{ height: 150, width: 150, borderRadius: 20 }} />
-                    </View>
-                </View>
+                </TouchableOpacity>
+                
             </View>
+            
+            
 
         </ScrollView>
     );

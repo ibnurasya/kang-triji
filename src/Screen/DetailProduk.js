@@ -16,6 +16,7 @@ import {
     View,
     Image,
     Button,
+    FlatList,
 } from 'react-native';
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -121,9 +122,10 @@ const styles = StyleSheet.create({
     },
     topseller: {
         // backgroundColor: '#eee',
-        backgroundColor: '#2fbdad',
+        // backgroundColor: '#2fbdad',
+        backgroundColor: '#fff',
         width: 350,
-        height: 200,
+        height: 250,
         marginLeft: 20,
         marginRight: 20,
         // border
@@ -153,23 +155,91 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         marginTop: 20,
         marginLeft: 1,
-
+        flex: 1,
         width: 150,
         height: 150,
         // alignContent: 'center',
         // justifyContent: 'center',
     },
-    deksripsiproduk:{
+    deksripsiproduk: {
         marginRight: 22,
         marginLeft: 22,
         fontSize: 15,
-    }
+    },
+    hargast: {
+        marginLeft: 22,
+        marginBottom: 10,
+        fontSize: 50,
+        marginTop: 5,
+        color: '#E4723C',
+    },
+    orderWrapper: {
+        marginTop: 20,
+        marginHorizontal: 20,
+        backgroundColor: '#F08233',
+        borderRadius: 50,
+        paddingVertical: 21,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    orderText: {
+        fontSize: 14,
+        color: "#fff"
+    },
+    ingredientsWrapper: {
+        marginTop: 40,
+
+    },
+    ingredientsTitle: {
+        paddingHorizontal: 20,
+        fontFamily: 'Montserrat_700Bold',
+        fontSize: 16,
+        color: 'black',
+    },
+    ingredientsListWrapper: {
+        marginLeft: 20,
+        paddingVertical: 20,
+        height:150,
+        
+    },
+    ingredientsItemWrapper: {
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        marginRight: 25,
+        borderRadius: 15,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2,
+    },  
+    ingredientsImage: {
+        resizeMode: 'contain',
+        width: 75,
+        height: 75,
+        borderRadius:20,
+    },
 
 });
 
 function DetailProduk({ route, navigation }) {
     const { produk } = React.useContext(RootContext);
     const [detailProduk, setDetailProduk] = useState({});
+    const { item } = route.params;
+
+    const renderIngredientsItem = ({ item }) => {
+        return (
+            <View style={styles.ingredientsItemWrapper}>
+                <Image source={item.image} style={styles.ingredientsImage} />
+            </View>
+        )
+    }
 
     useEffect(() => {
         const id = route.params.id;
@@ -194,48 +264,104 @@ function DetailProduk({ route, navigation }) {
 
     return (
         <ScrollView style={{ backgroundColor: "#fff", flex: 1, }}>
+            <View style={styles.container}>
+                <Text style={styles.h2}>{detailProduk.jenis}</Text>
+                <Text style={styles.title}>{detailProduk.nama}</Text>
+                <Text style={styles.hargast}>RP. {detailProduk.harga}</Text>
+            </View>
             <View style={styles.topseller}>
                 <View style={styles.topsellercont}>
                     <View style={styles.topsellerinner}>
-                        <Text style={{
-                            marginLeft: 20,
-                            marginTop: 20
-                        }}>
-                            <FontAwesome5 name="crown" size={24} color="#F5CA48" />Top Seller</Text>
                         <Text style={{
                             marginLeft: 20,
                             marginTop: 20,
                             fontSize: 20,
                             fontWeight: 'bold',
                             lineHeight: 20,
-                        }}>{detailProduk.nama}</Text>
+                        }}>Ratings</Text>
+                        <Text style={{ marginLeft: 20 }}>
+                            <AntDesign name="staro" size={15} color="black" />  5.0</Text>
                         <Text style={{
                             marginLeft: 20,
-                            marginTop: 2,
-                            fontSize: 12,
+                            marginTop: 20,
+                            fontSize: 20,
                             fontWeight: 'bold',
                             lineHeight: 20,
-                            color: 'white',
-                        }}>Harga RP. {detailProduk.harga}</Text>
+                        }}>Berat</Text>
+                        <Text style={{ marginLeft: 20 }}> {detailProduk.weight}</Text>
 
-                        <Text style={{ marginLeft: 20 }}>
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" />
-                            <AntDesign name="staro" size={24} color="black" /></Text>
+                        <Text style={{
+                            marginLeft: 20,
+                            marginTop: 20,
+                            fontSize: 20,
+                            fontWeight: 'bold',
+                            lineHeight: 20,
+                        }}>kadaluarsa</Text>
+                        <Text style={{ marginLeft: 20 }}> {detailProduk.expired}</Text>
                     </View>
+
 
                 </View>
                 <View style={styles.topsellercont}>
                     <View style={styles.topsellerinner}>
-                        <Image source={detailProduk.image} style={{ height: 150, width: 150, borderRadius: 20 }} />
+                        <Image source={detailProduk.image} style={{ height: 150, width: 150, borderRadius: 20, marginTop: 20 }} />
                     </View>
                 </View>
             </View>
-                <Text style={styles.deksripsiproduk}>{detailProduk.deskripsi}</Text>
+            <View style={styles.ingredientsWrapper}>
+                <Text style={styles.bagiantext}>Ingredients</Text>
+                <View style={styles.ingredientsListWrapper}>
+                    <FlatList
+                        data={detailProduk.ingredients}
+                        renderItem={renderIngredientsItem}
+                        keyExtractor={detailProduk => detailProduk.id}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+            </View>
+            {/* <View>
+                <Text style={styles.bagiantext}> Ingredients</Text>
+                <ScrollView horizontal style={{ flex: 1, minHeight: 220, maxHeight: 220 }}>
+                    {produk.map(({ nama, image, topseller }, index) => {
+                        return (
+                            <Ingredientss/>
+                        );
+                    })}
+                </ScrollView>
+            </View> */}
+            <View>
+                <TouchableOpacity onPress={() => alert("Pesanan telah masuk")}>
+                    <View style={styles.orderWrapper}>
+                        <Text style={styles.orderText}>
+                            Pesan
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                
+            </View>
+            
+            {/* <SizedBox height={16} /> */}
         </ScrollView>
     );
-}
+};
+
+// function Ingredientss({ image, text, id, }) {
+
+
+//     return <View style={styles.box}>
+//         <View style={[styles.inner]}>
+//             <FlatList
+//                 data={item.ingredients}
+//                 renderItem={renderIngredientsItem}
+//                 keyExtractor={item => item.id}
+//                 horizontal={true}
+//                 showsHorizontalScrollIndicator={false}
+//             />
+//             {/* <Image source={image} style={styles.tinyLogo} />
+//             <Text style={[styles.textbox]}>{text}</Text> */}
+//         </View>
+//     </View>;
+// }
 
 export default DetailProduk;

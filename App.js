@@ -7,6 +7,7 @@ import Home from './src/Screen/Home';
 import RootStack from './src/routes/RootStack';
 import { NavigationContainer } from '@react-navigation/native';
 import produk from "./src/produk";
+import './src/firebase/config';
 
 export const RootContext = React.createContext({ produk });
 
