@@ -231,10 +231,10 @@ const Home = ({ navigation }) => {
                         Email                    : 
                     </Text>
                 </View>
-                <TouchableOpacity onPress={() => alert("Pesanan telah masuk")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordVerify")}>
                     <View style={styles.orderWrapper}>
                         <Text style={styles.orderText}>
-                            Ubah Password?r
+                            Ubah Password?
                         </Text>
                     </View>
                 </TouchableOpacity>

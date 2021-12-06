@@ -29,7 +29,7 @@ export default function Stack() {
                     <View style={{ flexDirection: "column", marginTop: 40 }}>
                         <DrawerItem text={"Home"} icon="home" action={() => navigate("Home")} />
                         <DrawerItem text={"Keranjang"} icon="shoppingcart" action={() => navigate("Keranjang")} />
-                        <DrawerItem text={"UserProfile"} icon="user" action={() => navigate("UserProfile")} />
+                        <DrawerItem text={"User Profile"} icon="user" action={() => navigate("UserProfile")} />
                         <DrawerItem text={"Logout"} icon="logout" action={() => navigate("Login")} />
                     </View>
                 );

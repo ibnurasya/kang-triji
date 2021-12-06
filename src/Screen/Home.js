@@ -195,15 +195,8 @@ const Home = ({ navigation }) => {
                     color: '#CDCDCD',
                     marginBottom: 20
                 }}>  <AntDesign margintop='5' marginLeft='10' name="search1" size={20} color="black" />  Search</Text>
-                <Text style={styles.bagiantext}>MENU</Text>
+                
             </View>
-            <ScrollView horizontal style={{ flex: 1, minHeight: 220, maxHeight: 220 }}>
-                {produk.map(({ nama, image, topseller }, index) => {
-                    return (
-                        <MenuItem key={index} id={index} image={image} text={nama} highlighted={topseller} />
-                    );
-                })}
-            </ScrollView>
             <View style={styles.containerd}>
                 <Text style={styles.bagiantext}>TOP SELLER</Text>
             </View>
@@ -241,12 +234,24 @@ const Home = ({ navigation }) => {
                     </View>
 
                 </View>
+                
                 <View style={styles.topsellercont}>
                     <View style={styles.topsellerinner}>
                         <Image source={require('../../assets/putubelanda.jpeg')} style={{ height: 150, width: 150, borderRadius: 20 }} />
                     </View>
                 </View>
             </View>
+            <View style={styles.container}>
+                    <Text style={styles.bagiantext}>MENU</Text>
+                    </View>
+            <ScrollView horizontal style={{ flex: 1, minHeight: 220, maxHeight: 220 }}>
+                {produk.map(({ nama, image, topseller }, index) => {
+                    return (
+                        <MenuItem key={index} id={index} image={image} text={nama} highlighted={topseller} />
+                    );
+                })}
+            </ScrollView>
+           
 
         </ScrollView>
     );

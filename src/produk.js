@@ -6,12 +6,9 @@ const produk = [
         "image": require("../assets/putubelanda.jpeg"),
         "harga": 15000,
         "deskripsi": "asdads",
-        "rating": 5.0,
-        "berat": "350gr",
-        "kadaluarsa": "60 hari",
         "topseller": true,
-        "rating": '5.0',
-        "weight": '350 g',
+        "rating": 4.6,
+        "weight": '20 g',
         "expired": '60 hari',
         ingredients: [
             {
@@ -38,12 +35,9 @@ const produk = [
         "image": require("../assets/kriwil.jpeg"),
         "harga": 25000,
         "deskripsi": "asdads",
-        "rating": 5.0,
-        "berat": "350gr",
-        "kadaluarsa": "60 hari",
         "topseller": false,
-        "rating": '5.0',
-        "weight": '350 g',
+        "rating": 4.8,
+        "weight": '110 g',
         "expired": '60 hari',
         ingredients: [
             {
@@ -78,9 +72,6 @@ const produk = [
         "rating": '5.0',
         "weight": '350 g',
         "expired": '60 hari',
-        "rating": '5.0',
-        "weight": '350 g',
-        "expired": '60 hari',
         ingredients: [
             {
                 "id": '1',
@@ -107,13 +98,10 @@ const produk = [
         "image": require("../assets/Ayambakar.jpeg"),
         "harga": 30000,
         "deskripsi": "asdads",
-        "rating": 5.0,
-        "berat": "350gr",
-        "kadaluarsa": "60 hari",
         "topseller": false,
-        "rating": '5.0',
-        "weight": '350 g',
-        "expired": '60 hari',
+        "rating": 4.7,
+        "weight": '1000 g',
+        "expired": '2 hari',
         ingredients: [
             {
                 "id": '6',

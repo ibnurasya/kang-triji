@@ -194,15 +194,22 @@ const Home = ({ navigation }) => {
         })
     }, [])
 
+    const keranjangItem = [1];
+
     return (
         <ScrollView style={{ backgroundColor: "#fff", flex: 1, }}>
             <View style={styles.container}>
                 <Text style={styles.h2}>Keranjang</Text>
             </View>
             {
-                
+                keranjangItem.length > 0 ?
+                    <>
+                        <View style={{marginLeft:90,marginTop:150,marginBottom:250,}}><AntDesign name="shoppingcart" size={200} alignItems="center" color="#ADADAD"  /></View>
+                    <View><TouchableOpacity onPress={() => alert("Tambahkan Pesanan!")}><View style={styles.orderWrapper}><Text style={styles.orderText}>Bayar</Text></View></TouchableOpacity></View>
+                    </>
+                    : null
             }
-            <View>
+            {/* <View>
                 <TouchableOpacity onPress={() => alert("Pesanan telah masuk")}>
                     <View style={styles.orderWrapper}>
                         <Text style={styles.orderText}>
@@ -210,10 +217,10 @@ const Home = ({ navigation }) => {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                
-            </View>
-            
-            
+
+            </View> */}
+
+
 
         </ScrollView>
     );

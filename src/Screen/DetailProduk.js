@@ -280,7 +280,7 @@ function DetailProduk({ route, navigation }) {
                             lineHeight: 20,
                         }}>Ratings</Text>
                         <Text style={{ marginLeft: 20 }}>
-                            <AntDesign name="staro" size={15} color="black" />  5.0</Text>
+                            <AntDesign name="staro" size={15} color="black" />  {detailProduk.rating}</Text>
                         <Text style={{
                             marginLeft: 20,
                             marginTop: 20,
