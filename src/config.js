@@ -1,5 +1,5 @@
 const config = {
-	apiUrl: "http://192.168.43.207:8000/",
+	apiUrl: "https://kangtriji.nandaabi.digital/",
 }
 
 export default config;
