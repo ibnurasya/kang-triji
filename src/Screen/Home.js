@@ -264,7 +264,7 @@ function MenuItem({ image, text, id, highlighted }) {
 
     return <View style={styles.box}>
         <View style={[styles.inner, highlighted ? styles.innerOrange : {}]}>
-            <Image source={image} style={styles.tinyLogo} />
+            <Image source={{uri: image}} style={styles.tinyLogo} />
             <TouchableOpacity onPress={() => { navigation.navigate("DetailProduk", { id }) }}>
                 <AntDesign name="rightcircleo" size={24} color={highlighted ? "white" : "#5D7283"} />
             </TouchableOpacity>

@@ -201,8 +201,7 @@ const styles = StyleSheet.create({
 });
 
 const Home = ({ navigation }) => {
-    const { produk, token } = useContext(RootContext)
-    const [userDetail, setUserDetail] = useState();
+    const { userDetail } = useContext(RootContext)
 
     useEffect(() => {
         navigation.setOptions({
@@ -220,12 +219,6 @@ const Home = ({ navigation }) => {
 
     }, [])
 
-    useEffect(() => {
-        console.log("asdasdasdasd");
-        userAPI.userDetail(token).then(
-            res => setUserDetail(res)
-        )
-    }, [token]);
 
     return (
         <ScrollView style={{ backgroundColor: "#fff", flex: 1, }}>

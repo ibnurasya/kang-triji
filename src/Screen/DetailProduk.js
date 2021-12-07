@@ -27,6 +27,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Home from './Home';
 import { RootContext } from '../context/RootContext';
 import authAPI from "../api/auth";
+import cartAPI from '../api/cart';
 
 const styles = StyleSheet.create({
     container: {
@@ -252,26 +253,19 @@ const styles = StyleSheet.create({
 });
 
 function DetailProduk({ route, navigation }) {
-    const { produk } = React.useContext(RootContext);
+    const { produk, userDetail, token } = React.useContext(RootContext);
     const [detailProduk, setDetailProduk] = useState({});
     const { item } = route.params;
     const [jumlah, SetJumlah] = useState("");
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         // Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
-        console.log("berhasil login");
+        console.log("berhasil add to cart");
         // setlogin(true);
         // navigation.navigate("Login")
         // storeHighScore(9999);
-        authAPI.jumlahBr({ jumlah }).then((res) => {
-            if (!res.success) {
-                Alert.alert("Gagal melakukan pendaftaran");
-                return;
-            }
-            Alert.alert("Pendaftaran Sukses, Silahkan coba login");
-            navigation.navigate("Login");
-            console.log(res);
-        });
+        await cartAPI.postNewCart(detailProduk.id, userDetail.id, token);
+        navigation.navigate("Keranjang", {params: {refreshRef: Math.random()}});
     };
 
     const renderIngredientsItem = ({ item }) => {
@@ -345,7 +339,7 @@ function DetailProduk({ route, navigation }) {
                 </View>
                 <View style={styles.topsellercont}>
                     <View style={styles.topsellerinner}>
-                        <Image source={detailProduk.image} style={{ height: 150, width: 150, borderRadius: 20, marginTop: 20 }} />
+                        <Image source={{uri: detailProduk.image}} style={{ height: 150, width: 150, borderRadius: 20, marginTop: 20 }} />
                     </View>
                 </View>
             </View>
