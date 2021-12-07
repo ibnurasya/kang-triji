@@ -170,6 +170,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    orderWrapper1: {
+        marginTop: 20,
+        marginHorizontal: 20,
+        backgroundColor: '#ADADAD',
+        borderRadius: 50,
+        paddingVertical: 21,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     detailuser: {
         marginTop: 20,
         marginHorizontal: 20,
@@ -241,6 +251,7 @@ const Home = ({ navigation }) => {
                         Email                    : {userDetail?.email ?? ""}
                     </Text>
                 </View>
+               
                 <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordVerify")}>
                     <View style={styles.orderWrapper}>
                         <Text style={styles.orderText}>
@@ -248,6 +259,14 @@ const Home = ({ navigation }) => {
                         </Text>
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordVerify")}>
+                    <View style={styles.orderWrapper1}>
+                        <Text style={styles.orderText}>
+                            Hapus Akun?
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                
 
             </View>
 

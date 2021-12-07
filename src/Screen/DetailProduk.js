@@ -26,6 +26,7 @@ import Login from './Login';
 import { FontAwesome5 } from "@expo/vector-icons";
 import Home from './Home';
 import { RootContext } from '../context/RootContext';
+import authAPI from "../api/auth";
 
 const styles = StyleSheet.create({
     container: {
@@ -200,8 +201,8 @@ const styles = StyleSheet.create({
     ingredientsListWrapper: {
         marginLeft: 20,
         paddingVertical: 20,
-        height:150,
-        
+        height: 150,
+
     },
     ingredientsItemWrapper: {
         backgroundColor: 'white',
@@ -218,13 +219,35 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 10,
         elevation: 2,
-    },  
+    },
     ingredientsImage: {
         resizeMode: 'contain',
         width: 75,
         height: 75,
-        borderRadius:20,
+        borderRadius: 20,
     },
+    form: {
+        alignItems: "center",
+        backgroundColor: "rgb(58, 58, 60)",
+        borderRadius: 8,
+        flexDirection: "row",
+        height: 48,
+        paddingHorizontal: 16,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 20,
+      },
+      textInput: {
+        color: "#fff",
+        flex: 1,
+      },
+      label: {
+        color: "rgba(235, 235, 245, 0.6)",
+        fontSize: 15,
+        fontWeight: "400",
+        lineHeight: 20,
+        width: 80,
+      },
 
 });
 
@@ -232,6 +255,24 @@ function DetailProduk({ route, navigation }) {
     const { produk } = React.useContext(RootContext);
     const [detailProduk, setDetailProduk] = useState({});
     const { item } = route.params;
+    const [jumlah, SetJumlah] = useState("");
+
+    const onSubmit = () => {
+        // Alert.alert('Data', `Email: ${email}\nPassword: ${password}`);
+        console.log("berhasil login");
+        // setlogin(true);
+        // navigation.navigate("Login")
+        // storeHighScore(9999);
+        authAPI.jumlahBr({ jumlah }).then((res) => {
+            if (!res.success) {
+                Alert.alert("Gagal melakukan pendaftaran");
+                return;
+            }
+            Alert.alert("Pendaftaran Sukses, Silahkan coba login");
+            navigation.navigate("Login");
+            console.log(res);
+        });
+    };
 
     const renderIngredientsItem = ({ item }) => {
         return (
@@ -331,16 +372,16 @@ function DetailProduk({ route, navigation }) {
                 </ScrollView>
             </View> */}
             <View>
-                <TouchableOpacity onPress={() => alert("Pesanan telah masuk")}>
+                <TouchableOpacity onPress={onSubmit}>
                     <View style={styles.orderWrapper}>
                         <Text style={styles.orderText}>
                             Pesan
                         </Text>
                     </View>
                 </TouchableOpacity>
-                
+
             </View>
-            
+
             {/* <SizedBox height={16} /> */}
         </ScrollView>
     );

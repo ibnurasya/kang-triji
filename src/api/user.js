@@ -15,6 +15,7 @@ const userAPI = {
       { Authorization: `Bearer ${token}` }
     );
   },
+  
 };
 
 export default userAPI;
